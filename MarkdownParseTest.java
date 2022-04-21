@@ -7,22 +7,26 @@ import java.util.ArrayList;
 import java.util.*;
 
 public class MarkdownParseTest {
-    String testfilemd = "";
-    ArrayList<String> testfilecontains;
+    ArrayList<String> fileText;
+    ArrayList<ArrayList<String>> fileContains;
     @Before
     public void setUp() throws IOException{
-	    testfilemd = Files.readString(Path.of("test-file.md"));
-	    testfilecontains = new ArrayList<String>(Arrays.asList(
+	    fileText = new ArrayList();
+	    fileContains = new ArrayList();
+	    //test-file.md
+	    fileText.add(Files.readString(Path.of("test-file.md")));
+	    fileContains.add(new ArrayList<String>(Arrays.asList(
 		 new String[]{ "https://something.com",
-		    "https://something.com",
-		   "some-thing.html"}));
+		   "some-thing.html"})));
     }
     @Test
     public void addition() {
         assertEquals(2, 1 + 1);
     }
     @Test
-    public void testGetLinksTestFileMd() {
-        assertEquals(testfilecontains,MarkdownParse.getLinks(testfilemd));
+    public void testTestFiles() {
+	for(int i = 0; i < fileContains.size(); i++){
+        	assertEquals(fileContains.get(i),MarkdownParse.getLinks(fileText.get(i)));
+	}
     }
 }
